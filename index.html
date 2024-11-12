@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar URL Personalizada - Estilo Hacker</title>
+    <style>
+        /* Estilo global */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #121212;
+            color: #00ff00;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            cursor: none;
+            position: relative;
+        }
+
+        /* Código cayendo */
+        .code-line {
+            position: absolute;
+            top: -100%;
+            font-size: calc(10px + 0.5vw);
+            color: #00ff00;
+            white-space: nowrap;
+            animation: fall 10s linear infinite;
+            opacity: 0.6;
+            text-align: left;
+            transform: translateX(-50%);
+        }
+
+        @keyframes fall {
+            0% { top: -10%; }
+            100% { top: 110%; }
+        }
+
+        /* Estilo del contenedor */
+        .container {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+            width: 100%;
+            max-width: 720px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: calc(18px + 1vw);
+            color: #00ff00;
+            margin-bottom: 15px;
+            letter-spacing: 1.5px;
+        }
+
+        label {
+            font-size: calc(12px + 0.5vw);
+            color: #00ff00;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 2px solid #00ff00;
+            background-color: #121212;
+            color: #00ff00;
+            font-size: calc(14px + 0.3vw);
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #00ff00;
+            color: #121212;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: calc(12px + 0.3vw);
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #00cc00;
+        }
+
+        .output {
+            margin-top: 20px;
+        }
+
+        .output p {
+            display: flex;
+            align-items: center;
+            font-size: calc(14px + 0.3vw);
+            color: #00ff00;
+            margin: 10px 0;
+            justify-content: space-between;
+            overflow-wrap: anywhere;
+            gap: 10px;
+        }
+
+        .output a {
+            color: #00ff00;
+            text-decoration: none;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding: 5px 10px;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            background-color: #121212;
+            flex-grow: 1;
+        }
+
+        .output button {
+            padding: 5px 25px;
+            background-color: #00ff00;
+            color: #121212;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Rastro del cursor */
+        .cursor-trail {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #00ff00;
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+            animation: trail 0.5s ease;
+        }
+
+        @keyframes trail {
+            from { transform: scale(1); opacity: 1; }
+            to { transform: scale(0.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contenedor principal -->
+    <div class="container">
+        <h1>Generar URL Personalizada</h1>
+      <h4>URL base = https://universal/</h4>
+      <br>
+        
+        <label for="originalUrl">Ingresa la URL original:</label>
+        <input type="text" id="originalUrl" placeholder="https://ejemplo.com">
+        
+        <label for="customName">Ingresa un nombre personalizado:</label>
+        <input type="text" id="customName" placeholder="nombrepersonalizado.com">
+        
+        <button onclick="generateUrls()">Generar URLs</button>
+
+        <div class="output">
+            <p id="originalLink"></p>
+            <p id="customLink"></p>
+        </div>
+    </div>
+
+    <!-- Código cayendo -->
+    <script>
+        // Generar líneas de código cayendo sin superposición
+        const generateCodeFall = () => {
+            const lines = Array(50).fill("console.log('Hacking in progress...');");
+            lines.forEach((line, i) => {
+                const codeLine = document.createElement("div");
+                codeLine.className = "code-line";
+                codeLine.style.left = `${(i * 2)}%`; // Separar cada línea un 2% de ancho
+                codeLine.style.animationDelay = `${i * 0.4}s`; // Añadir delay constante
+                codeLine.textContent = line;
+                document.body.appendChild(codeLine);
+            });
+        };
+        generateCodeFall();
+
+        // Generar URLs y copiar
+                function generateUrls() {
+            const originalUrl = document.getElementById('originalUrl').value.trim();
+            const customName = document.getElementById('customName').value.trim();
+
+            if (originalUrl && customName) {
+                // Aquí es donde se genera la URL modificada
+                const customUrl = "https://universal/" + customName;
+
+                // Mostrar la URL original y la personalizada
+                document.getElementById('originalLink').innerHTML = `URL Original: <a href="${originalUrl}" target="_blank">${originalUrl}</a>`;
+                document.getElementById('customLink').innerHTML = `URL Personalizada: <a href="${originalUrl}" target="_blank">${customUrl}</a>`;
+            } else {
+                alert("Por favor, ingresa tanto la URL original como el nombre personalizado.");
+            }
+        }
+
+        // Copiar texto al portapapeles
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => alert("¡Copiado al portapapeles!"));
+        }
+
+        // Rastro del cursor
+        document.addEventListener("mousemove", (e) => {
+            const trail = document.createElement("div");
+            trail.className = "cursor-trail";
+            trail.style.left = `${e.pageX}px`;
+            trail.style.top = `${e.pageY}px`;
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 500);
+        });
+    </script>
+</body>
+</html>
